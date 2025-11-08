@@ -14,6 +14,7 @@ import {
   getCategoryTags,
   PageContentData,
   CategoryPageContent,
+  CategoryComment,
 } from "@/lib/services/category-service";
 import CategoryHeroSection from "@/components/utils/CategoryHeroSection";
 import CategoryAboutSection from "@/components/utils/CategoryAboutSection";
@@ -233,7 +234,7 @@ export default async function CategoryPage({
     };
 
     // Transform comments for CommentsSlider
-    const comments = (category.comments || []).map((c) => {
+    const comments = (category.comments || []).map((c: CategoryComment) => {
       // Determine user name
       let displayName = c.userName || "کاربر";
       if (!c.userName && c.user) {

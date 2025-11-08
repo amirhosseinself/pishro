@@ -48,6 +48,11 @@ export type CategoryWithRelations = Prisma.CategoryGetPayload<{
 export type CategoryPageContent = CategoryWithRelations['content'][number];
 
 /**
+ * Type for Comment extracted from CategoryWithRelations
+ */
+export type CategoryComment = CategoryWithRelations['comments'][number];
+
+/**
  * Type for page content with proper JSON typing
  */
 export interface PageContentData {
