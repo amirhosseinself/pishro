@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "type-check": "tsc --noEmit",
     "svgr": "svgr ./public/icons --out-dir ./public/svgr-icons --icon"
   },
   "prisma": {
