@@ -5,7 +5,6 @@
  */
 
 import { NextRequest } from "next/server";
-import { CourseLevel } from "@prisma/client";
 import {
   successResponse,
   errorResponse,
@@ -18,6 +17,7 @@ import {
   getCategoryFAQs,
   getCategoryComments,
   getCategoryCourses,
+  CourseLevel,
 } from "@/lib/services/category-service";
 
 export const revalidate = 3600; // ISR: Revalidate every 1 hour

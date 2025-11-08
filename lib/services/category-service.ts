@@ -6,6 +6,9 @@
 import { prisma } from "@/lib/prisma";
 import { Prisma, PageContentType, CourseLevel } from "@prisma/client";
 
+// Re-export Prisma types for use in other files
+export { CourseLevel };
+
 /**
  * Type for category with full relations
  */
