@@ -13,6 +13,7 @@ import {
   getAllCategorySlugs,
   getCategoryTags,
   PageContentData,
+  CategoryPageContent,
 } from "@/lib/services/category-service";
 import CategoryHeroSection from "@/components/utils/CategoryHeroSection";
 import CategoryAboutSection from "@/components/utils/CategoryAboutSection";
@@ -135,8 +136,8 @@ export default async function CategoryPage({
     }
 
     // Extract landing and about content from PageContent
-    const landingContent = category.content.find((c) => c.type === "LANDING");
-    const aboutContent = category.content.find((c) => c.type === "ABOUT");
+    const landingContent = category.content.find((c: CategoryPageContent) => c.type === "LANDING");
+    const aboutContent = category.content.find((c: CategoryPageContent) => c.type === "ABOUT");
 
     const landingContentData = landingContent
       ? parseContentData(landingContent.content)
