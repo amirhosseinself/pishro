@@ -15,6 +15,8 @@ import {
   PageContentData,
   CategoryPageContent,
   CategoryComment,
+  CategoryTag,
+  CategoryFAQ,
 } from "@/lib/services/category-service";
 import CategoryHeroSection from "@/components/utils/CategoryHeroSection";
 import CategoryAboutSection from "@/components/utils/CategoryAboutSection";
@@ -31,7 +33,7 @@ export const revalidate = 3600;
 export async function generateStaticParams() {
   try {
     const slugs = await getAllCategorySlugs();
-    return slugs.map((slug) => ({
+    return slugs.map((slug: string) => ({
       categorySlug: slug,
     }));
   } catch (error) {
@@ -200,7 +202,7 @@ export default async function CategoryPage({
         { number: 95, suffix: "%", label: "رضایت کاربران" },
         { number: 5, suffix: "سال", label: "تجربه آموزشی" },
       ],
-      features: landingContentData?.features?.map((f) => ({ text: f })) || [
+      features: landingContentData?.features?.map((f: string) => ({ text: f })) || [
         {
           icon: <LuTarget className="text-myPrimary text-3xl" />,
           text: "نقشه راه کامل از صفر",
@@ -265,7 +267,7 @@ export default async function CategoryPage({
     });
 
     // Transform tags for TagsListDynamic
-    const tagList = tags.map((tag) => ({
+    const tagList = tags.map((tag: CategoryTag) => ({
       id: tag.id,
       title: tag.title,
       slug: tag.slug,
@@ -362,7 +364,7 @@ export default async function CategoryPage({
                 سوالات متداول
               </h2>
               <div className="space-y-4">
-                {category.faqs.map((faq) => (
+                {category.faqs.map((faq: CategoryFAQ) => (
                   <details
                     key={faq.id}
                     className="bg-white p-6 rounded-lg shadow-sm"

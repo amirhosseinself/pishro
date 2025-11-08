@@ -53,6 +53,16 @@ export type CategoryPageContent = CategoryWithRelations['content'][number];
 export type CategoryComment = CategoryWithRelations['comments'][number];
 
 /**
+ * Type for Tag extracted from CategoryWithRelations
+ */
+export type CategoryTag = CategoryWithRelations['tags'][number];
+
+/**
+ * Type for FAQ extracted from CategoryWithRelations
+ */
+export type CategoryFAQ = CategoryWithRelations['faqs'][number];
+
+/**
  * Type for page content with proper JSON typing
  */
 export interface PageContentData {
