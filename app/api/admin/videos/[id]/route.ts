@@ -30,10 +30,10 @@ export async function GET(
     // Auth check - only admins
     const session = await auth();
     if (!session?.user) {
-      return unauthorizedResponse("D7A' H'1/ 4HÌ/");
+      return unauthorizedResponse("لطفا وارد شوید");
     }
     if (session.user.role !== "ADMIN") {
-      return forbiddenResponse("/3*13Ì E-/H/ (G '/EÌF");
+      return forbiddenResponse("دسترسی محدود به ادمین");
     }
 
     const { id } = await params;
@@ -41,14 +41,14 @@ export async function GET(
     const video = await getVideoById(id);
 
     if (!video) {
-      return notFoundResponse("Video", "HÌ/ÌH Ì'A* F4/");
+      return notFoundResponse("Video", "ویدیو یافت نشد");
     }
 
     return successResponse(video);
   } catch (error) {
     console.error("Error fetching video:", error);
     return errorResponse(
-      ".7' /1 /1Ì'A* HÌ/ÌH",
+      "خطا در دریافت ویدیو",
       ErrorCodes.DATABASE_ERROR
     );
   }
@@ -62,34 +62,34 @@ export async function PATCH(
     // Auth check - only admins
     const session = await auth();
     if (!session?.user) {
-      return unauthorizedResponse("D7A' H'1/ 4HÌ/");
+      return unauthorizedResponse("لطفا وارد شوید");
     }
     if (session.user.role !== "ADMIN") {
-      return forbiddenResponse("/3*13Ì E-/H/ (G '/EÌF");
+      return forbiddenResponse("دسترسی محدود به ادمین");
     }
 
     const { id } = await params;
 
-    // (113Ì H,H/ HÌ/ÌH
+    // بررسی وجود ویدیو
     const existingVideo = await getVideoById(id);
     if (!existingVideo) {
-      return notFoundResponse("Video", "HÌ/ÌH Ì'A* F4/");
+      return notFoundResponse("Video", "ویدیو یافت نشد");
     }
 
     const body: UpdateVideoInput = await req.json();
 
     try {
-      // (1H213'FÌ (' '3*A'/G '2 videoId
+      // بروزرسانی با استفاده از videoId
       const updatedVideo = await updateVideo(existingVideo.videoId, body);
 
-      return successResponse(updatedVideo, "HÌ/ÌH (' EHABÌ* (G1H213'FÌ 4/");
+      return successResponse(updatedVideo, "ویدیو با موفقیت بروزرسانی شد");
     } catch (updateError) {
       const message =
         updateError instanceof Error
           ? updateError.message
-          : ".7' /1 (G1H213'FÌ HÌ/ÌH";
+          : "خطا در بروزرسانی ویدیو";
 
-      if (message.includes("Ì'A* F4/")) {
+      if (message.includes("یافت نشد")) {
         return notFoundResponse("Video", message);
       }
 
@@ -98,7 +98,7 @@ export async function PATCH(
   } catch (error) {
     console.error("Error updating video:", error);
     return errorResponse(
-      ".7' /1 (G1H213'FÌ HÌ/ÌH",
+      "خطا در بروزرسانی ویدیو",
       ErrorCodes.INTERNAL_ERROR
     );
   }
@@ -112,34 +112,34 @@ export async function DELETE(
     // Auth check - only admins
     const session = await auth();
     if (!session?.user) {
-      return unauthorizedResponse("D7A' H'1/ 4HÌ/");
+      return unauthorizedResponse("لطفا وارد شوید");
     }
     if (session.user.role !== "ADMIN") {
-      return forbiddenResponse("/3*13Ì E-/H/ (G '/EÌF");
+      return forbiddenResponse("دسترسی محدود به ادمین");
     }
 
     const { id } = await params;
 
-    // (113Ì H,H/ HÌ/ÌH
+    // بررسی وجود ویدیو
     const existingVideo = await getVideoById(id);
     if (!existingVideo) {
-      return notFoundResponse("Video", "HÌ/ÌH Ì'A* F4/");
+      return notFoundResponse("Video", "ویدیو یافت نشد");
     }
 
     try {
-      // -0A (' '3*A'/G '2 videoId
+      // حذف با استفاده از videoId
       await deleteVideo(existingVideo.videoId);
       return successResponse(
         { deleted: true },
-        "HÌ/ÌH (' EHABÌ* -0A 4/"
+        "ویدیو با موفقیت حذف شد"
       );
     } catch (deleteError) {
       const message =
         deleteError instanceof Error
           ? deleteError.message
-          : ".7' /1 -0A HÌ/ÌH";
+          : "خطا در حذف ویدیو";
 
-      if (message.includes("Ì'A* F4/")) {
+      if (message.includes("یافت نشد")) {
         return notFoundResponse("Video", message);
       }
 
@@ -148,7 +148,7 @@ export async function DELETE(
   } catch (error) {
     console.error("Error deleting video:", error);
     return errorResponse(
-      ".7' /1 -0A HÌ/ÌH",
+      "خطا در حذف ویدیو",
       ErrorCodes.INTERNAL_ERROR
     );
   }
